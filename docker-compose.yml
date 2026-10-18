@@ -1,0 +1,40 @@
+services:
+
+  api_gateway:
+    build: ./api_gateway
+    container_name: api_gateway
+    ports:
+      - "4000:4000"
+    depends_on:
+      - registration_service
+      - login_service
+      - package_service
+      - delivery_service
+
+  registration_service:
+    build: ./registration_service
+    container_name: registration_service
+    ports:
+      - "4001:4001"
+
+  login_service:
+    build: ./login_service
+    container_name: login_service
+    ports:
+      - "4002:4002"
+
+  package_service:
+    build: ./package_service
+    container_name: package_service
+    ports:
+      - "4003:4003"
+    env_file:
+      - ./package_service/.env
+
+  delivery_service:
+    build: ./delivery_service
+    container_name: delivery_service
+    ports:
+      - "4004:4004"
+    env_file:
+      - ./delivery_service/.env
